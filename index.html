@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>New Epic Game</title>
+	<style>
+		body {
+			margin: 0;
+			padding: 0;
+			background: blue;
+		}
+		@keyframes sway {
+			0% { transform: rotate(0deg); }
+			50% { transform: rotate(5deg); }
+			100% { transform: rotate(-5deg); }
+		}
+		button {
+			outline: red;
+			color: red;
+			display: block;
+			margin: auto;
+			margin-top: 30vh;
+			font-size: 200%;
+			background: lime;
+			border: none;
+			cursor: pointer;
+			animation: sway 1.5s ease-in-out infinite;
+		}
+		video {
+			position: absolute;
+			left: 0;
+			top: 0;
+			width: 100vw;
+			height: 100vh;
+			display: none;
+		}
+	</style>
+</head>
+<body>
+	<video id="video">
+		<source src="game.mp4">
+	</video>
+	<button id="button" title="Click me" onclick="go()">Press to start!</button>
+	<script>
+		const video = document.getElementById("video");
+		video.load();
+		function go() {
+			document.getElementById("button").style.display = "none";
+			video.play();
+			video.style.display = "block";
+			document.body.style.backgroundColor = "black";
+			{
+				const elem = document.documentElement;
+				if (elem.requestFullscreen) {
+					elem.requestFullscreen();
+				} else if (elem.webkitRequestFullscreen) { /* Safari */
+					elem.webkitRequestFullscreen();
+				} else if (elem.msRequestFullscreen) { /* IE11 */
+					elem.msRequestFullscreen();
+				}
+			}
+			{
+				const elem = document.body; // or your canvas
+				elem.requestPointerLock = elem.requestPointerLock || elem.mozRequestPointerLock || elem.webkitRequestPointerLock;
+				if (elem.requestPointerLock) {
+					elem.requestPointerLock();
+				}
+			}
+		}
+	</script>
+</body>
+</html>
